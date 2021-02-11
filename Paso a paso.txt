@@ -1,0 +1,33 @@
+Paso a paso de la Plantilla
+---------------------------
+
+1)	Instalación del paquete del idioma español para Jetstream.
+
+	composer require amendozaaguiar/laraveles-spanish-for-jetstream
+
+2)	Actualizamos las traducciones.
+
+	php artisan vendor:publish --tag=lang
+
+3)	Luego en el config/app.php
+
+	'locale'          => 'es',
+
+4)	Cambiando el logo de las pantallas de Autenticación.
+
+	El logo es renderizado por el componente 'Login.vue', a
+	través de su componente hijo: 'AuthenticationCardLogo.vue'.
+
+	El 'Login.vue' recibe una 'props' con el nombre 'logo', el cual
+	le pasamos a través de: En el archivo: 'FortifyServiceProvider.php'
+	en el método 'boot', le agregamos lo siguiente:
+
+        Fortify::loginView(function () {
+            return Inertia::render('Auth/Login', [
+                'canResetPassword' => Route::has('password.request'),
+                'status' => session('status'),
+                'logo' => 'localhostLOGO'
+            ]);
+        });
+
+    Aquí le pasamos un string con el path del logo de la aplicación.
