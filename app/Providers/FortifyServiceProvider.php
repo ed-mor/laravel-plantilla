@@ -21,6 +21,7 @@ class FortifyServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function register()
     {
         //
@@ -33,12 +34,11 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         Fortify::loginView(function () {
             return Inertia::render('Auth/Login', [
                 'canResetPassword' => Route::has('password.request'),
                 'status' => session('status'),
-                'logo' => 'localhostLOGO'
+                'logo' =>  env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env')
             ]);
         });
 

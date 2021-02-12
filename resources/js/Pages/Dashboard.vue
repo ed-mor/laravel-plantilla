@@ -25,5 +25,8 @@
             AppLayout,
             Welcome,
         },
+        props: {
+            logo: String,
+        }
     }
 </script>
