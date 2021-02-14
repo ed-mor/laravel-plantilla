@@ -1,11 +1,13 @@
 <template>
     <jet-authentication-card>
         <template #logo>
-            <jet-authentication-card-logo />
+            <jet-authentication-card-logo>
+                <span class="text-3xl text-gray-600 font-extrabold text-center p-4">Resetear contraseña</span>
+            </jet-authentication-card-logo>
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
+        <div class="mb-4 text-md text-gray-600">
+            ¿Olvidó su contraseña? No hay problema. Simplemente díganos su dirección de correo electrónico y le enviaremos un enlace para restablecer la contraseña que le permitirá elegir una nueva.
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -16,13 +18,13 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email" />
+                <jet-label for="email" class="font-bold text-2xl" value="Correo electrónico" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
+                    Resetear Contraseña
                 </jet-button>
             </div>
         </form>
@@ -48,7 +50,8 @@
         },
 
         props: {
-            status: String
+            status: String,
+            logo: String
         },
 
         data() {

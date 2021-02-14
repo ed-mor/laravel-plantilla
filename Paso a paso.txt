@@ -26,8 +26,41 @@ Paso a paso de la Plantilla
             return Inertia::render('Auth/Login', [
                 'canResetPassword' => Route::has('password.request'),
                 'status' => session('status'),
-                'logo' => 'localhostLOGO'
+                'logo' => config(system.app:logo)
             ]);
         });
 
     Aquí le pasamos un string con el path del logo de la aplicación.
+
+    Pero que sucede? en otras ventanas no estará disponible ese String que 
+    nos aporta el path/name del ícono. Entonces recurrimos a 'Shared data' 
+    (Datos compartidos) de inertiaJs que permite datos compartidos para todos 
+    los componentes VUE de la aplicación.
+
+    Para que esté disponible para todos los componentes de VUE, Compartimos 
+    esos datos en el archivo: HandleInertiaRequests.php
+
+	    public function share(Request $request)
+	    {
+	        return array_merge(parent::share($request), [
+	            // Logo de la aplicación
+	            'logo' => config('system.app_logo'),
+	        ]);
+	    }    
+
+
+5)	El ícono de la aplicación.
+
+	La Aplicación renderiza un index.html (resorces/views/app.blade.php) como base para los componentes VUE, la cual en su comportamiento normal busca un archivo 'public/favicon.ico', 
+	para renderizar el ícono en el navegador.
+
+	Pero, podemos cambiar ese comportamiento editando ese archivo.
+
+    {{-- ícono de la página --}}
+    <link rel="shortcut icon" href=" {{config('system.app_icon')}} " />
+    Utilizamos el helpper config, para traer datos del array de configuración del sistema
+    que es devuelto por el archivo 'config/system.php'
+
+
+
+

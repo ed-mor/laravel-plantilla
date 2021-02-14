@@ -1,29 +1,31 @@
 <template>
     <jet-authentication-card>
         <template #logo>
-            <jet-authentication-card-logo />
+            <jet-authentication-card-logo>
+                <span class="text-4xl text-gray-600 font-extrabold text-center p-4">Registrase</span>
+            </jet-authentication-card-logo>
         </template>
 
         <jet-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="name" value="Nombre" />
+                <jet-label class="text-lg font-bold" for="name" value="Nombre" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
-                <jet-label for="email" value="Correo Electrónico" />
+                <jet-label class="text-lg font-bold" for="email" value="Correo Electrónico" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
             </div>
 
             <div class="mt-4">
-                <jet-label for="password" value="Contraseña" />
+                <jet-label class="text-lg font-bold" for="password" value="Contraseña" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <jet-label for="password_confirmation" value="Confirmar contraseña" />
+                <jet-label class="text-lg font-bold" for="password_confirmation" value="Confirmar contraseña" />
                 <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
             </div>
 
@@ -40,7 +42,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <inertia-link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <inertia-link :href="route('login')" class="underline text-sm text-blue-400 text-lg font-bold hover:text-blue-600">
                     Ya estoy registrado?
                 </inertia-link>
 
