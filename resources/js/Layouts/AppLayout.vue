@@ -1,22 +1,40 @@
 <template>
-    <div>
+    <div class="flex bg-red-900">
+        <div v-if="showingSidebar" class="w-56 h-full hidden md:inline-flex">
+            <div class="flex justify-center bg-gray-900 w-56 h-16">
+                 <!-- Logo -->
+                <inertia-link :href="route('home')">
+                    <template>                    
+                        <div class="flex-shrink-0 flex items-center">
+                            <jet-application-mark class="block h-9 w-auto" />
+                            <div class="text-white p-4">
+                                Home
+                            </div>
+                        </div>
+                    </template>
+                </inertia-link>
+            </div>
+        </div>
+
         <jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-200 w-full">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto px-1 sm:px-2">
                     <div class="flex justify-between h-16">
                         <div class="flex">
-                            <!-- Logo -->
-                            <div class="flex-shrink-0 flex items-center">
-                                <inertia-link :href="route('home')">
-                                    <jet-application-mark class="block h-9 w-auto" />
-                                </inertia-link>
+                            <div class="flex pt-3 pr-3 hidden md:inline-flex items-start">
+                                <button @click="showingSidebar = ! showingSidebar" class="inline-flex items-center justify-center px-0 py-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                        <path :class="{'hidden': showingSidebar, 'inline-flex': ! showingSidebar }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                        <path :class="{'hidden': ! showingSidebar, 'inline-flex': showingSidebar }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden py-4 space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden py-4 space-x-8 sm:-my-px sm:ml-0 sm:flex">
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Panel de Control
                                 </jet-nav-link>
@@ -254,6 +272,7 @@
         data() {
             return {
                 showingNavigationDropdown: false,
+                showingSidebar: true,
             }
         },
 
