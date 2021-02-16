@@ -23,6 +23,13 @@
 	export default {
         components: {
             JetApplicationMark,
-        }
+        },
+
+        // props: {
+        //     showingSidebar: {
+        //       type: Boolean,
+        //       requiered: true,
+        //     }
+        // },
 	}
 </script>

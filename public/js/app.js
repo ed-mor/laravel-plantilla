@@ -2848,6 +2848,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      showingSidebar: true
+    };
+  },
   components: {
     JetBanner: _Jetstream_Banner__WEBPACK_IMPORTED_MODULE_0__.default,
     SideBar: _Layouts_Dashboard_Partials_SideBar__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -3122,16 +3127,15 @@ __webpack_require__.r(__webpack_exports__);
     JetNavLink: _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_4__.default,
     JetResponsiveNavLink: _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  // props: {
-  //     showingSidebar: {
-  //       type: Boolean,
-  //       default: true,
-  //     }
-  // }
+  props: {
+    showingSidebar: {
+      type: Boolean,
+      requiered: true
+    }
+  },
   data: function data() {
     return {
-      showingNavigationDropdown: false,
-      showingSidebar: true
+      showingNavigationDropdown: false
     };
   },
   methods: {
@@ -3185,7 +3189,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     JetApplicationMark: _Jetstream_ApplicationMark__WEBPACK_IMPORTED_MODULE_0__.default
-  }
+  } // props: {
+  //     showingSidebar: {
+  //       type: Boolean,
+  //       requiered: true,
+  //     }
+  // },
+
 });
 
 /***/ }),
@@ -29152,9 +29162,28 @@ var render = function() {
     [
       _c("jet-banner"),
       _vm._v(" "),
-      _c("side-bar"),
+      _c("side-bar", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showingSidebar,
+            expression: "showingSidebar"
+          }
+        ]
+      }),
       _vm._v(" "),
-      _c("nav-link")
+      _c("nav-link", {
+        attrs: { showingSidebar: _vm.showingSidebar },
+        on: {
+          "update:showingSidebar": function($event) {
+            _vm.showingSidebar = $event
+          },
+          "update:showing-sidebar": function($event) {
+            _vm.showingSidebar = $event
+          }
+        }
+      })
     ],
     1
   )
@@ -29204,7 +29233,10 @@ var render = function() {
                         "inline-flex items-center justify-center px-0 py-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out",
                       on: {
                         click: function($event) {
-                          _vm.showingSidebar = !_vm.showingSidebar
+                          return _vm.$emit(
+                            "update:showingSidebar",
+                            !_vm.showingSidebar
+                          )
                         }
                       }
                     },

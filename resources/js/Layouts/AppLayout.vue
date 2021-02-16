@@ -1,8 +1,8 @@
 <template>
     <div class="flex bg-red-900">
         <jet-banner />
-        <side-bar></side-bar>
-        <nav-link></nav-link>
+        <side-bar v-show="showingSidebar"></side-bar>
+        <nav-link v-bind:showingSidebar.sync="showingSidebar"></nav-link>
     </div>
 </template>
 
@@ -12,6 +12,11 @@
     import NavLink from '@/Layouts/Dashboard/Partials/NavLink'    
 
     export default {
+        data () {
+            return {
+                showingSidebar: true,    
+            } 
+        },
         components: {
             JetBanner,
             SideBar,
