@@ -21,8 +21,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard' , [
+Route::middleware(['auth:sanctum', 'verified'])->get('dashboard', function () {
+    return Inertia::render('Dashboard/Dashboard' , [
     	'logo' => env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env')
     ]);
 })->name('dashboard');

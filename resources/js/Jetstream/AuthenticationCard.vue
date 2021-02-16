@@ -1,6 +1,6 @@
 <template>
 	<div class="flex justify-center">
-	    <div class="flex flex-col h-screen w-screen justify-center items-center pt-6 sm:pt-0 bg-green-900 text-white">
+	    <div class="flex flex-col hidden md:inline-flex h-screen w-screen justify-center items-center pt-6 sm:pt-0 bg-green-900 text-white">
 	        <div>
 	            <h1 class="text-6xl">{{ $page.props.app_name }}</h1>
 	            <h1 class="text-xl">{{ $page.props.app_slogan }}</h1>
