@@ -1,12 +1,10 @@
 <template>
     <app-layout>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    
-                </div>
+        <template>
+            <div class="w-56 m-4 rounded-md shadow-xl bg-white">
+                Dashboard            
             </div>
-        </div>
+        </template>
     </app-layout>
 </template>
 
@@ -17,8 +15,19 @@
         components: {
             AppLayout,
         },
+        methods: {
+            CambiaSidebar(showingSidebar){
+                this.showingSidebar = showingSidebar;
+                //debugger
+                //showingSidebar
+            }
+        },
         props: {
             logo: String,
+            // showingSidebar: {
+            //   type: Boolean,
+            //   default: true,
+            // },
         }
     }
 </script>

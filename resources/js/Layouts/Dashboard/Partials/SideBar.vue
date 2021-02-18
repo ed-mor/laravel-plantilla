@@ -1,20 +1,15 @@
 <template>
-    <div class="w-56 h-full hidden md:inline-flex">
-        <div class="flex justify-center bg-gray-900 w-56 h-16">
-             <!-- Logo -->
-            <inertia-link :href="route('home')">
-                <template>                    
-                    <div class="flex-shrink-0 flex items-center">
-                        <jet-application-mark class="block h-9 w-auto" />
-                        <div class="text-white p-4">
-                            Home
-                        </div>
-                    </div>
-                </template>
-            </inertia-link>
+    <div>
+        <!-- Cuerpo del Sidebar -->
+        <div class="flex flex-col justify-between w-56 bg-red-900 h-screen">                
+            <div class="bg-red-900">
+                body sidebar            
+            </div>             
+            <div class="bg-blue-900 pb-24">
+                body sidebar            
+            </div>             
         </div>
     </div>
-
 </template>
 
 <script>
@@ -24,12 +19,10 @@
         components: {
             JetApplicationMark,
         },
-
-        // props: {
-        //     showingSidebar: {
-        //       type: Boolean,
-        //       requiered: true,
-        //     }
-        // },
+        props: {
+            showingSidebar: {
+              type: Boolean,
+            }
+        },
 	}
 </script>

@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
             'logo' => config('system.app_logo'),
             'app_name' => config('system.app_name'),
             'app_slogan' => config('system.app_slogan'),
-            'app_description' => config('system.app_description')
+            'app_description' => config('system.app_description'),
+            'statusSidebar' => true
         ]);
     }
 }
