@@ -2771,29 +2771,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // data () {
-  //     return {
-  //         showingSidebar: false,    
-  //     } 
-  // },
-  props: {
-    showingSidebar: {
-      type: Boolean,
-      "default": true
-    }
+  data: function data() {
+    return {
+      showingSidebar: true //this.$parent._props.initialPage.props.statusSidebar  
+
+    };
   },
-  // watch: {
-  //   // cada vez que el estado de la barra cambie la función será ejecutada
-  //   showingSidebar: function () {
-  //     this.$emit('EstadoSidebar', this.showingSidebar)
-  //   }
-  // },
   methods: {
     hideSidebar: function hideSidebar() {}
-  },
-  mounted: function mounted() {//this.$parent._props.showingSidebar = this.showingSidebar;
-    //console.log(this.$parent._props.showingSidebar);
-    //console.log(this.showingSidebar);
   },
   components: {
     SideBar: _Layouts_Dashboard_Partials_SideBar__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -4058,16 +4043,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     CambiaSidebar: function CambiaSidebar(showingSidebar) {
-      this.showingSidebar = showingSidebar; //debugger
-      //showingSidebar
+      this.showingSidebar = showingSidebar;
     }
   },
   props: {
-    logo: String // showingSidebar: {
-    //   type: Boolean,
-    //   default: true,
-    // },
-
+    logo: String,
+    showingSidebar: {
+      type: Boolean,
+      "default": true
+    }
   }
 });
 
@@ -5043,7 +5027,8 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.mixin({
 });
 vue__WEBPACK_IMPORTED_MODULE_2__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_1__.default);
-var app = document.getElementById('app');
+var app = document.getElementById('app'); //	let vm = new Vue({
+
 new vue__WEBPACK_IMPORTED_MODULE_2__.default({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.App, {
@@ -31015,6 +31000,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      attrs: { showingSidebar: _vm.showingSidebar },
+      on: {
+        "update:showingSidebar": function($event) {
+          _vm.showingSidebar = $event
+        },
+        "update:showing-sidebar": function($event) {
+          _vm.showingSidebar = $event
+        }
+      }
+    },
     [
       [
         _c("div", { staticClass: "w-56 m-4 rounded-md shadow-xl bg-white" }, [

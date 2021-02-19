@@ -40,31 +40,15 @@
     import JetApplicationMark from '@/Jetstream/ApplicationMark'
 
     export default {
-        // data () {
-        //     return {
-        //         showingSidebar: false,    
-        //     } 
-        // },
-        props: {
-            showingSidebar: {
-              type: Boolean,
-              default: true,
-            }
+        data () {
+            return {
+                showingSidebar: true,
+                //this.$parent._props.initialPage.props.statusSidebar  
+            } 
         },
-        // watch: {
-        //   // cada vez que el estado de la barra cambie la función será ejecutada
-        //   showingSidebar: function () {
-        //     this.$emit('EstadoSidebar', this.showingSidebar)
-        //   }
-        // },
         methods: {
           hideSidebar() {
           },
-        },
-        mounted(){
-          //this.$parent._props.showingSidebar = this.showingSidebar;
-          //console.log(this.$parent._props.showingSidebar);
-          //console.log(this.showingSidebar);
         },
         components: {
             SideBar,
