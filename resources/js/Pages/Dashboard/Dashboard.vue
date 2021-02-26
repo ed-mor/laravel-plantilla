@@ -1,5 +1,5 @@
 <template>
-    <app-layout v-bind:showingSidebar.sync="showingSidebar">
+    <app-layout ref="myAppLayout" v-bind:showingSidebar.sync="showingSidebar">
         <template>
             <div class="w-56 m-4 rounded-md shadow-xl bg-white">
                 Dashboard            
@@ -15,18 +15,24 @@
         components: {
             AppLayout,
         },
-        methods: {
-            CambiaSidebar(showingSidebar){
-                this.showingSidebar = showingSidebar;
+        data(){
+            return{
+                showingSidebar: true    
             }
         },
-
+        beforeMount(){
+            //console.log(this.$refs);
+            
+            //console.log(this.$parent.$vnode.data.props.initialPage.props.statusSidebar)
+            //this.showingSidebar = this.$parent.$vnode.data.props.initialPage.props.statusSidebar
+            //console.log(this.showingSidebar)
+        },
         props: {
             logo: String,
-            showingSidebar: {
-              type: Boolean,
-              default: true,
-            },
+            // showingSidebar: {
+            //   type: Boolean,
+            //   default: true,
+            // },
         }
     }
 </script>

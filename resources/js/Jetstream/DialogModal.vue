@@ -43,6 +43,9 @@
             close() {
                 this.$emit('close')
             },
+            focus: function () {
+                this.$refs.input.focus()
+            },
         }
     }
 </script>

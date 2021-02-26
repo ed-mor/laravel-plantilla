@@ -161,6 +161,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        /*
+         * Spatie (Roles y Permisos)...
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...

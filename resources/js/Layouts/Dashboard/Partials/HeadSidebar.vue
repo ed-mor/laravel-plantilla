@@ -5,7 +5,7 @@
             <template>                    
                 <div class="flex-shrink-0 flex items-center">
                     <jet-application-mark class="block h-9 w-auto" />
-                    <div class="text-white text-xl p-4 uppercase font-bold">
+                    <div class="text-white text-xl p-4 uppercase font-bold hover:text-gray-400">
                         Inicio
                     </div>
                 </div>

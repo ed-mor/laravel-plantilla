@@ -61,6 +61,31 @@ Paso a paso de la Plantilla
     Utilizamos el helpper config, para traer datos del array de configuración del sistema
     que es devuelto por el archivo 'config/system.php'
 
+6)	Instalción del paquete SPATIE para controlar Roles y Permisos.
+
+	composer require spatie/laravel-permission
+
+	Documentación completa en: https://spatie.be/docs/laravel-permission/v3/installation-laravel
+
+
+7)	Creación de los seeders y factories
+
+8)	Instalación del Remember Query String (Para restaurar las cadenas de consulta)
+
+	composer require reinink/remember-query-strings
+
+	CONFIGURACIÓN: 
+
+	Primero registre el middleware de ruta en su App\HttpKernelclase:
+
+	protected $routeMiddleware = [
+	    // ..
+	    'remember' => \Reinink\RememberQueryStrings::class,
+	];
+
+	USO:
+
+		Route::get('users')->name('users')->uses('UsersController@index')->middleware('remember');
 
 
 

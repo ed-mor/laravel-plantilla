@@ -5,7 +5,7 @@
         </template>
 
         <template #description>
-            Elimina permanentemente tu cuenta.
+            Elimina permanentemente su cuenta.
         </template>
 
         <template #content>
@@ -30,7 +30,7 @@
 
                     <div class="mt-4">
                         <jet-input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                    ref="password"
+                                    ref = "password"
                                     v-model="form.password"
                                     @keyup.enter.native="deleteUser" />
 
@@ -82,11 +82,18 @@
 
         methods: {
             confirmUserDeletion() {
+                //debugger
+                //console.log(this.confirmingUserDeletion);
+                
                 this.confirmingUserDeletion = true;
-
+                //console.log(confirmingUserDeletion);
+                
+                //debugger
+                // this.$nextTick(() => {
+                //   // your code goes here
+                // });                
                 setTimeout(() => this.$refs.password.focus(), 250)
             },
-
             deleteUser() {
                 this.form.delete(route('current-user.destroy'), {
                     preserveScroll: true,
@@ -95,7 +102,6 @@
                     onFinish: () => this.form.reset(),
                 })
             },
-
             closeModal() {
                 this.confirmingUserDeletion = false
 

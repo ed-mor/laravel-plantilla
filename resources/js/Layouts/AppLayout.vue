@@ -1,6 +1,8 @@
 <template>
-  
-  <div>
+	
+  <div class="bg-blue-50">
+    <!-- <portal-target name="dropdown" slim /> -->
+    <jet-banner />
     <div class="md:flex md:flex-col">
       <div class="md:h-screen md:flex md:flex-col">
         <div class="md:flex md:flex-shrink-0">
@@ -13,6 +15,7 @@
           <!-- Barra de Navegación -->
           <div class="w-full items-center md:py-0 text-sm md:text-md">
             <nav-bar 
+              v-bind:ref="'myNavBar'"
               v-bind:showingSidebar.sync="showingSidebar">
             </nav-bar>
           </div>
@@ -34,26 +37,28 @@
 
 </template>
 <script>
-    import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
+    import JetApplicationMark from '@/Jetstream/ApplicationMark'
+    import JetBanner from '@/Jetstream/Banner'
+	  import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
     import NavBar from '@/Layouts/Dashboard/Partials/NavBar'    
     import HeadSidebar from '@/Layouts/Dashboard/Partials/HeadSidebar'    
-    import JetApplicationMark from '@/Jetstream/ApplicationMark'
 
     export default {
         data () {
             return {
                 showingSidebar: true,
-                //this.$parent._props.initialPage.props.statusSidebar  
             } 
         },
         methods: {
           hideSidebar() {
+            this.showingSidebar = !showingSidebar
           },
         },
         components: {
-            SideBar,
-            NavBar,
             JetApplicationMark,
+    		    JetBanner,        
+			      NavBar,
+            SideBar,
             HeadSidebar,
         }
     }
