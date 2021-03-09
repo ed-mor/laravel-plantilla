@@ -1,19 +1,8 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,8 +12,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('dashboard', function () {
+    $user = Auth::user();
     return Inertia::render('Dashboard/Dashboard' , [
-    	'logo' => env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env')
+    	'logo' => env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env'),
+        'cuenta' => $user->account->name 
     ]);
 })->name('dashboard');
 
@@ -46,6 +37,10 @@ Route::put('users/{user}', [UsersController::class, 'update'])
     ->middleware('auth');
 Route::delete('users/{user}', [UsersController::class, 'destroy'])
     ->name('users.destroy')
+    ->middleware('auth');
+//deletePhoto
+Route::delete('usersDeletePhoto/{user}', [UsersController::class, 'deletePhoto'])
+    ->name('users.deletePhoto')
     ->middleware('auth');
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')

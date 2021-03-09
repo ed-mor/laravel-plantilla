@@ -16,11 +16,11 @@
                             ref="photo"
                             @change="updatePhotoPreview">
 
-                <jet-label for="photo" value="Photo" />
+                <jet-label for="photo" value="Fotografia" />
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" v-show="! photoPreview">
-                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
+                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-lg h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -120,6 +120,7 @@
             },
 
             updatePhotoPreview() {
+                
                 const reader = new FileReader();
 
                 reader.onload = (e) => {

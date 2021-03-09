@@ -28,6 +28,7 @@
             v-bind:showingSidebar.sync="showingSidebar">
           </side-bar>
           <div class="md:flex-1 px-2 py-2 md:p-2 md:overflow-y-auto" scroll-region>
+            <flash-messages />
             <slot></slot>
           </div>
         </div>
@@ -39,9 +40,11 @@
 <script>
     import JetApplicationMark from '@/Jetstream/ApplicationMark'
     import JetBanner from '@/Jetstream/Banner'
-	  import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
+	  import FlashMessages from '@/Shared/FlashMessages'
+    import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
     import NavBar from '@/Layouts/Dashboard/Partials/NavBar'    
     import HeadSidebar from '@/Layouts/Dashboard/Partials/HeadSidebar'    
+
 
     export default {
         data () {
@@ -56,7 +59,8 @@
         },
         components: {
             JetApplicationMark,
-    		    JetBanner,        
+    		    JetBanner,
+            FlashMessages,
 			      NavBar,
             SideBar,
             HeadSidebar,

@@ -87,5 +87,25 @@ Paso a paso de la Plantilla
 
 		Route::get('users')->name('users')->uses('UsersController@index')->middleware('remember');
 
+9)	Sobre-escribir el siguiente método en el modelo 'App/Models/User.php' para poder recuperar 
+	usuarios anteriormente eliminados con SoftDelete.
 
+	    public function resolveRouteBinding($value, $field = null)
+	    {
+	        return in_array(SoftDeletes::class, class_uses($this))
+	            ? $this->where($this->getRouteKeyName(), $value)->withTrashed()->first()
+	            : parent::resolveRouteBinding($value);
+	    }
 
+10)	Instalamos el plugins '@tailwindcss/forms' para agregar el componente de vue-tailwind (TToggle)
+
+		npm install vue-tailwind --save
+		npm install @tailwindcss/forms
+
+	Importamos y Configuramos los (vue-tailwind) en el 'recources/app.js'
+
+		import VueTailwind from 'vue-tailwind' 
+		Vue.use(VueTailwind, components)
+
+		o  Instalar los componentes que se necesitan nada mas...
+		

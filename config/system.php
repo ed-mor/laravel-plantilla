@@ -7,16 +7,19 @@ return [
     // Slogan de la AplicaAción
     'app_slogan' => env('APP_SLOGAN') ?: 'Los Generos del pensamiento',
     // Descripcción de la Aplicación
-    'app_description' => env('APP_DESCRIPTION') ?: 'Plantilla Láravel 8, con Jetstream(Inertia) y Tailwind',
+    'app_description' => env('APP_DESCRIPTION') ?: 'Plantilla Láravel 8, Jetstream(Inertia) y Tailwind',
     // Imagen Inicio Sesión
     'app_img_login' => env('APP_IMG_LOGIN') ? : '',
-    
-    // Super Admin (id del usuario que es SUPER ADMINISTRADOR)
+        // Super Admin (id del usuario que es SUPER ADMINISTRADOR)
     'super_admin' => env('APP_SUPER_ADMIN') ?: 1,
     // Ícono de la página
     'app_icon' => env('APP_ICON') ?: '/images/favicon.ico',
     // Logo de la aplicación env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env')
-    'app_logo' => env('APP_LOGO') ?: 'logo de la aplicación',
+    'app_logo' => env('APP_LOGO') ?: 'logo de la aplicación',  
+    // Avatar por defecto de los Usuarios
+    'app_default_avatar' => env('APP_URL') . '/images/profile_default.jpeg',
+    'app_isDemo' => false,
+
 
     // Admin Credentials (Credenciales del administrador)
     'admin_name' => env('ADMIN_NAME') ?: 'ed-mor',

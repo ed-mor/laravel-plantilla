@@ -13,6 +13,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+//  use League\Glide\Server;
 
 class User extends Authenticatable
 {
@@ -54,10 +55,15 @@ class User extends Authenticatable
     /**
      * Para la foto del Usuario
      */
-    public function photoUrl(array $attributes)
+    public function photoUrl()
     {
-        if ($this->photo_path) {
-            return URL::to(App::make(Server::class)->fromPath($this->photo_path, $attributes));
+        if ($this->profile_photo_path) {
+            return env('APP_URL') . '/storage/' . $this->profile_photo_path;
+        }else{
+            $url = config('system.app_default_avatar');
+            $url2 =  'https://ui-avatars.com/api/?name=';
+            $url2 = $url2 . $this->name; // . '&color=7F9CF5&background=EBF4FF'; AZUL CLARITO
+            return $url2;
         }
     }
 
@@ -117,9 +123,9 @@ class User extends Authenticatable
 
         })->when($filters['eliminados'] ?? null, function ($query, $eliminados) {
             if ($eliminados === 'with') {
-                $query->withTrashed();
+                $query->withTrashed()->get();
             } elseif ($eliminados === 'only') {
-                $query->onlyTrashed();
+                $query->onlyTrashed()->get();
             }
         });
         //dd($filters);
@@ -148,4 +154,10 @@ class User extends Authenticatable
         return $this->belongsTo(Account::class);
     }
 
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return in_array(SoftDeletes::class, class_uses($this))
+            ? $this->where($this->getRouteKeyName(), $value)->withTrashed()->first()
+            : parent::resolveRouteBinding($value);
+    }
 }

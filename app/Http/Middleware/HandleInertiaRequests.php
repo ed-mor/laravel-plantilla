@@ -42,7 +42,13 @@ class HandleInertiaRequests extends Middleware
             'app_name' => config('system.app_name'),
             'app_slogan' => config('system.app_slogan'),
             'app_description' => config('system.app_description'),
-            'statusSidebar' => true
+            'statusSidebar' => true,
+            'flash' => function () use ($request) {
+                return [
+                    'success' => $request->session()->get('success'),
+                    'error' => $request->session()->get('error'),
+                ];
+            }
         ]);
     }
 }

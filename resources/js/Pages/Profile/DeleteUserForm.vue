@@ -48,6 +48,8 @@
                     </jet-danger-button>
                 </template>
             </jet-dialog-modal>
+
+
         </template>
     </jet-action-section>
 </template>
@@ -81,17 +83,8 @@
         },
 
         methods: {
-            confirmUserDeletion() {
-                //debugger
-                //console.log(this.confirmingUserDeletion);
-                
+            confirmUserDeletion() {             
                 this.confirmingUserDeletion = true;
-                //console.log(confirmingUserDeletion);
-                
-                //debugger
-                // this.$nextTick(() => {
-                //   // your code goes here
-                // });                
                 setTimeout(() => this.$refs.password.focus(), 250)
             },
             deleteUser() {

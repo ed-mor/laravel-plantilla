@@ -2,15 +2,16 @@
 	<div class="p-2">
       <!-- Usuario Actual -->    
       <div class="w-48 py-1 px-1 mx-16">
-      	  <inertia-link href="/user/profile">
-	          <img class="h-16 w-16 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />  	  	
+      	  <inertia-link :href="route('profile.show')">
+	          <img class="h-16 w-16 rounded-lg object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />  	  	
       	  </inertia-link>
       </div>
-      <div class="text-white text-lg mb-1 font-bold text-center w-52 border-b-2 border-gray-400 pb-1">
+      <div class="text-white text-lg font-bold text-center w-52 border-b-2 border-gray-400 pb-1">
         {{$page.props.user.name}} 
+      	<h1 v-if="$page.props.cuenta" class="text-xs text-white mx-auto"> <b>Cta:</b> {{$page.props.cuenta}}</h1>
   	  </div>
 	  <div class="flex">
-	    <div class="bg-red-900 flex flex-col justify-between w-48">
+	    <div class="bg-gray-800 flex flex-col justify-between w-48">
 	      <div>
 	        <ul class="text-white">
 	          <!-- Usuarios -->
