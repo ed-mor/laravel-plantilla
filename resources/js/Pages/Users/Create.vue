@@ -1,10 +1,10 @@
 <template>
   <div class="max-w-2xl rounded-xl shadow-xl bg-white p-6">
-    <h1 class="mb-2 font-bold text-3xl">
-      <inertia-link class="mb-2 text-blue-900 font-bold text-2xl underline hover:text-indigo-600" :href="route('users')">Usuarios</inertia-link>
+    <h1 class="mb-5 font-bold">
+      <inertia-link class="text-blue-900 font-bold text-2xl hover:text-indigo-600" :href="route('users')">Usuarios</inertia-link>
       <span class="font-bold text-2xl">/ Crear Usuario</span> 
     </h1>
-    <div class="bg-white rounded shadow overflow-hidden max-w-2xl">
+    <div class="bg-white rounded shadow border-2 overflow-hidden max-w-2xl">
       <jet-validation-errors class="m-4" />
       <form @submit.prevent="submit">
             <div class="mx-6 mt-2">
@@ -72,6 +72,7 @@ export default {
         name: null,
         email: null,
         password: null,
+        password_confirmation: null,
         status: false,
         photo: null,
       },
@@ -83,6 +84,7 @@ export default {
       data.append('name', this.form.name || '')
       data.append('email', this.form.email || '')
       data.append('password', this.form.password || '')
+      data.append('password_confirmation', this.form.password_confirmation || '')
       data.append('status', this.form.status ? '1' : '0')
       data.append('photo', this.form.photo || '')
 

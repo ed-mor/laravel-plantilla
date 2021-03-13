@@ -108,4 +108,29 @@ Paso a paso de la Plantilla
 		Vue.use(VueTailwind, components)
 
 		o  Instalar los componentes que se necesitan nada mas...
-		
+
+11)	Instalamos Intervention Image para manipular las imágenes que se almacenan en el servidor.
+
+	composer require intervention/image 
+
+	Luego en el array de proveedores 'config/app.php' agregamos:
+
+		Intervention\Image\ImageServiceProvider::class
+
+	Luego agregamos el alias
+
+		'Image' => Intervention\Image\Facades\Image::class
+
+	Luego publicamos el archivo de configuración
+
+		php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"
+
+12)	Instalamos Sweet Alert 2,  para mejorar los mensajes.
+
+		npm install -S vue-sweetalert2
+
+	Luego en el 'resources/app.js' agrego:
+
+		import VueSweetalert2 from 'vue-sweetalert2';
+		import 'sweetalert2/dist/sweetalert2.min.css';
+		Vue.use(VueSweetalert2);

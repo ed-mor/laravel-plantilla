@@ -28,7 +28,7 @@
             v-bind:showingSidebar.sync="showingSidebar">
           </side-bar>
           <div class="md:flex-1 px-2 py-2 md:p-2 md:overflow-y-auto" scroll-region>
-            <flash-messages />
+            <!-- <flash-messages /> -->
             <slot></slot>
           </div>
         </div>
@@ -38,32 +38,66 @@
 
 </template>
 <script>
-    import JetApplicationMark from '@/Jetstream/ApplicationMark'
-    import JetBanner from '@/Jetstream/Banner'
-	  import FlashMessages from '@/Shared/FlashMessages'
-    import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
-    import NavBar from '@/Layouts/Dashboard/Partials/NavBar'    
-    import HeadSidebar from '@/Layouts/Dashboard/Partials/HeadSidebar'    
+  import JetApplicationMark from '@/Jetstream/ApplicationMark'
+  import JetBanner from '@/Jetstream/Banner'
+  //import FlashMessages from '@/Shared/FlashMessages'
+  import SideBar from '@/Layouts/Dashboard/Partials/SideBar'    
+  import NavBar from '@/Layouts/Dashboard/Partials/NavBar'    
+  import HeadSidebar from '@/Layouts/Dashboard/Partials/HeadSidebar'    
+  import Swal from 'sweetalert2'
 
-
-    export default {
-        data () {
-            return {
-                showingSidebar: true,
-            } 
-        },
-        methods: {
-          hideSidebar() {
-            this.showingSidebar = !showingSidebar
-          },
-        },
-        components: {
-            JetApplicationMark,
-    		    JetBanner,
-            FlashMessages,
-			      NavBar,
-            SideBar,
-            HeadSidebar,
-        }
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
+  })
+
+  export default {
+    data () {
+        return {
+            showingSidebar: true,
+        } 
+    },
+    watch: {
+      '$page.props.flash': {
+        handler() {
+            //debugger
+            if (this.$page.props.flash){
+              //console.log(this.$page.props.flash.success);
+              if (this.$page.props.flash.success){
+                Toast.fire({
+                  icon: 'success',
+                  title: this.$page.props.flash.success
+                })                           
+              }
+              if (this.$page.props.flash.error){
+                Toast.fire({
+                  icon: 'error',
+                  title: this.$page.props.flash.error
+                })                                         
+              }
+            }
+        },
+      },
+    },
+    methods: {
+      hideSidebar() {
+        this.showingSidebar = !showingSidebar
+      },
+    },
+    components: {
+        JetApplicationMark,
+		    JetBanner,
+        //FlashMessages,
+	      NavBar,
+        SideBar,
+        HeadSidebar,
+    }
+  }
 </script>

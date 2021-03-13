@@ -6,7 +6,8 @@
         <slot />
       </div>
     </div>
-    <button class="text-sm text-yellow-800 hover:underline" tabindex="-1" type="button" @click="$emit('restore')">Restaurar</button>
+    <button class="text-sm py-1 px-3 bg-green-100 text-green-900 hover:underline" tabindex="-1" type="button" @click="$emit('restore')">Restaurar</button>
+    <button class="text-sm py-1 px-3 bg-red-100 text-red-900 hover:underline" tabindex="-1" type="button" @click="$emit('forceDelete')">Eliminar Defeinitivamente</button>      
   </div>
 </template>
 

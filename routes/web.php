@@ -15,7 +15,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('dashboard', function () {
     $user = Auth::user();
     return Inertia::render('Dashboard/Dashboard' , [
     	'logo' => env('APP_URL', 'Logo en el:') . env('APP_LOGO', '.env'),
-        'cuenta' => $user->account->name 
+        'sessionAccount' => $user->account->name 
     ]);
 })->name('dashboard');
 
@@ -38,11 +38,13 @@ Route::put('users/{user}', [UsersController::class, 'update'])
 Route::delete('users/{user}', [UsersController::class, 'destroy'])
     ->name('users.destroy')
     ->middleware('auth');
-//deletePhoto
-Route::delete('usersDeletePhoto/{user}', [UsersController::class, 'deletePhoto'])
-    ->name('users.deletePhoto')
-    ->middleware('auth');
 Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
+    ->middleware('auth');
+Route::delete('usersForceDelete/{user}', [UsersController::class, 'forceDelete'])
+    ->name('users.forcedelete')
+    ->middleware('auth');
+Route::delete('usersDeletePhoto/{user}', [UsersController::class, 'deletePhoto'])
+    ->name('users.deletePhoto')
     ->middleware('auth');
 

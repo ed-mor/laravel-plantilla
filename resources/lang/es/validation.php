@@ -148,6 +148,7 @@ return [
 
     'attributes' => [
         'password' => 'CONTRASEÑA',
+        'account_id' => 'CUENTA',
         'current_password' => 'CONTRASEÑA ACTUAL',
         'name' => 'NOMBRE',
         'email' => 'E-MAIL',

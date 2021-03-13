@@ -1,10 +1,13 @@
 <template>
   <popper
-    trigger="clickToOpen"
+    trigger="clickToToggle"
+    :visible-arrow = "false"
     :options="{
       placement: 'bottom',
-      modifiers: { offset: { offset: '0,10px' } }
-    }">
+      modifiers: { offset: { offset: '0,10px' } },
+      gpuAcceleration: true
+    }"
+    >
 
     <div class="popper">
       <slot></slot>

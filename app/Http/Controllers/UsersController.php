@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
@@ -16,7 +18,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        //$user = Auth::user();
         return Inertia::render('Users/index', [
             'filters' => Request::all('buscar', 'status', 'eliminados'),
             'users' => Auth::user()->account->users()
@@ -36,32 +38,23 @@ class UsersController extends Controller
                         'deleted_at' => $user->deleted_at,
                     ];
                 }),
-            'cuenta' => $user->account->name
+            'sessionAccount' => Auth::user()->account->name
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Users/Create', [
+            'sessionAccount' => Auth::user()->account->name
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //dd($request);
-        Request::validate([
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
-            'password' => ['nullable'],
-            'status' => ['required', 'boolean'],
-            'photo' => ['nullable', 'image'],
-        ]);
-
         Auth::user()->account->users()->create([
-            'name' => Request::get('name'),
-            'email' => Request::get('email'),
-            'password' => Request::get('password'),
-            'status' => Request::get('status'),
-            'profile_photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
         ]);
 
         return Redirect::route('users')->with('success', 'Usuario creado satisfactoriamente...');
@@ -81,68 +74,65 @@ class UsersController extends Controller
                 'email' => $user->email,
                 'status' => $user->status,
                 'profile_photo_path' => $user->photoUrl(),
-                'deleted_at' => $user->deleted_at,
+                'deleted_at' => $user->setFecha(),
+                'account_id' => $user->account_id,
+                'account_name' => Auth::user()->account->name,
             ],
+            'sessionAccount'    => Auth::user()->account->name,
+            'accounts' => Account::select('id', 'name')->orderBy('name', 'ASC')->get()
         ]);
     }
 
-    public function update(User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //  Si es DEMO Cancela
         if (config('system.app_isDemo')) {
            return Redirect::back()->with('error', 'La actualización no está permitida en la versión DEMO');
         }
-        //  Revisr que se cumpla la Política
-            //  TODO
-        //  Validación 
-        $data = request()->validate([
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
-            'password' => ['nullable'],
-            'status' => ['required', 'boolean'],
-            'profile_photo_path' => ['nullable', 'image'],
-        ]);
         //  Asignando valores
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->status = $data['status'];
-
+            $user->account_id = $request['account_id'];
+            $user->name = $request['name'];
+            $user->email = $request['email'];
+            $user->status = $request['status'];
         //  Si el usuario sube una nueva imagen
-        if (Request::file('profile_photo_path')) {
+        if ($request->file('profile_photo_path')) {
             //  Eliminamos la imagen anterior
             $imgOld = 'public/' . $user->profile_photo_path;
             Storage::delete($imgOld);
             //  Obtenemos la ruta de la nueva imagen
-            $ruta_imagen = $data['profile_photo_path']->store('profile-photos','public');
+            $ruta_imagen = $request['profile_photo_path']->store('profile-photos','public');
             //  Actualizamos el string de la imagen para la BBDD
             $user->profile_photo_path = $ruta_imagen;
             //  Guardamos la nueva imagen
             $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(300,300);
             $img->save();
         }
-
+        //  Salvamos
         $user->save();
-
-        if (Request::get('password')) {
-            $user->update(['password' => Request::get('password')]);
+        // Si Hay password nuevo lo actualizo.
+        if ($request->get('password')) {
+            $user->update(['password' => $request->get('password')]);
         }
 
-        //  Redireccionar
-        return Redirect::back()->with('success', 'Usuario actualizado...');
+        //  Redireccionar con un mensaje flash que muestra Sweet Alert
+        return Redirect::back()->with('success', 'Usuario actualizado con éxito...');
     }
 
     public function deletePhoto(User $user)
     {
         if (config('system.app_isDemo')) {
-            return Redirect::back()->with('error', 'La Eliminación de Usuarios, no es permitida en la versión DEMO...');
+            return Redirect::back()->with('error', 'La Eliminación, no es permitida en la versión DEMO...');
         }
         //  Eliminamos la foto 
         $imgOld = 'public/' . $user->profile_photo_path;
-        Storage::delete($imgOld);
-        $user->profile_photo_path = null;
-        $user->save();
-        //  Redireccionar
-        return Redirect::back()->with('success', 'Foto Eliminada...');
+        if(Storage::delete($imgOld)){
+            $user->profile_photo_path = null;
+            $user->save();
+            //  Redireccionar
+            return Redirect::back()->with('success', 'Foto Eliminada...');
+        }else{
+            return Redirect::back()->with('error', 'Usuario sin foto...');
+        }
     }
 
     public function destroy(User $user)
@@ -157,6 +147,15 @@ class UsersController extends Controller
         $user->delete();
         return Redirect::route('users')->with('success', 'Usuario eliminado...');
         //  return Redirect::back()->with('success', 'Usuario eliminado...');
+    }
+
+    public function forceDelete(User $user)
+    {
+         // Eliminamos la foto 
+         $imgOld = 'public/' . $user->profile_photo_path;
+         Storage::delete($imgOld);
+         $user->forceDelete();
+         return Redirect::route('users')->with('success', 'Usuario eliminado...');
     }
 
     public function restore(User $user)

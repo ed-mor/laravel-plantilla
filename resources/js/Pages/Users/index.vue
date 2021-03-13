@@ -2,23 +2,27 @@
   <div class="m-auto w-full rounded-xl shadow-xl bg-white p-6">
     <div class="flex justify-between">
       <h1 class="mb-5 font-bold text-2xl">Usuarios</h1>
-      <!-- <h1 class="mb-5 mt-3 font-bold text-md">CTA: {{$page.props.user.account.name}}</h1> -->
+      <div>
+        <span v-if="sessionAccount" class="font-bold text-2xl"> <b>Cta:</b> {{sessionAccount}}</span>
+      </div>
     </div>
     <div class="mb-4 flex justify-between items-center">
     <search-filter v-model="form.buscar" class="w-full max-w-md mr-4" @reset="reset">
 
-        <label class="block text-gray-700">Status:</label>
-        <select v-model="form.status" class="mt-1 w-full form-select">
-          <option :value="null">nulo</option>
-          <option value=1>Activos</option>
-          <option value=null>Inactivos</option>
-        </select>
-        <label class="mt-4 block text-gray-700">Eliminados:</label>
-        <select v-model="form.eliminados" class="mt-1 w-full form-select">
-          <option :value="null">nulo</option>
-          <option value="with">Con Eliminados</option>
-          <option value="only">Solo Eliminados</option>
-        </select>
+        <div class="bg-gray-200 p-1">
+          <label class="mt-2 block text-lg text-gray-800">Status:</label>
+          <select v-model="form.status" class="mt-1 w-full p-2 leading-normal block border text-gray-700 bg-white font-sans rounded-2xl text-left appearance-none relative">
+            <option :value="null"></option>
+            <option value=1>Activos</option>
+            <option value=null>Inactivos</option>
+          </select>          
+          <label class="mt-2 block text-lg text-gray-800">Eliminados:</label>
+          <select v-model="form.eliminados" class="mb-4 mt-1 w-full p-2 leading-normal block border text-gray-700 bg-white font-sans rounded-2xl text-left appearance-none relative">
+            <option :value="null"></option>
+            <option value="with">Con Eliminados</option>
+            <option value="only">Solo Eliminados</option>
+          </select>
+        </div>
 
     </search-filter>
 
@@ -27,7 +31,7 @@
       <span class="hidden md:inline">usuario</span>
     </inertia-link>
     </div>
-    <div class="bg-white rounded shadow overflow-x-auto">
+    <div class="bg-white rounded border-2 shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left text-xl font-bold bg-gray-300">
           <th class="px-6 pt-4 pb-3">Nombre</th>
@@ -89,6 +93,7 @@ export default {
   props: {
     users: Array,
     filters: Object,
+    sessionAccount: '',
     showingSidebar: {
       type: Boolean,
       default: true,

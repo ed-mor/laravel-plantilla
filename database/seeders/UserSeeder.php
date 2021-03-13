@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(12)->create();
         User::create([
             'name' => 'Edser Moreno',
             'account_id' => 1,
@@ -26,6 +25,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123'),
             'remember_token' => Str::random(10)
         ]);
+        User::factory()->count(12)->create();
 
         // factory(User::class, 4)
         //     ->create(['account_id' => $account->id])

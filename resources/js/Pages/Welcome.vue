@@ -16,6 +16,7 @@
             </template>
 
         </div>
+        <!-- <button class="bg-gray-100" @click="showAlert">Hello world</button> -->
         <div class="container sm:my-auto my-auto">
             <h1 class="py-20 md:py-16 mx-14 md:text-7xl lg:text-9xl sm:text-6xl text-6xl sm:text-center text-center font-bold bg-gray-400 items-center rounded-3xl shadow-2xl h-60 text-blue-700">Welcome</h1>
         </div>
@@ -29,6 +30,12 @@
             canLogin: Boolean,
             canRegister: Boolean,
             //  theme: String,
-        }
+        },
+        // methods: {
+        //     showAlert() {
+        //         // Use sweetalert2
+        //         this.$swal('Hello Vue world!!!');
+        //     },
+        // },
     }
 </script>

@@ -8,7 +8,7 @@
       </div>
       <div class="text-white text-lg font-bold text-center w-52 border-b-2 border-gray-400 pb-1">
         {{$page.props.user.name}} 
-      	<h1 v-if="$page.props.cuenta" class="text-xs text-white mx-auto"> <b>Cta:</b> {{$page.props.cuenta}}</h1>
+      	<h1 v-if="$page.props.sessionAccount" class="text-xs text-white mx-auto"> <b>Cta:</b> {{$page.props.sessionAccount}}</h1>
   	  </div>
 	  <div class="flex">
 	    <div class="bg-gray-800 flex flex-col justify-between w-48">
@@ -25,18 +25,20 @@
 	            </a>
 	            <ul class="ml-4 hidden-item bg-green-900" :class="{'hidden': toggleUsers}">
 	              <!-- Users/index.vue -->
-	              <inertia-link href="/users">
+	              <inertia-link :href="route('users')">
 		              <li class="border-b border-gray-800 block px-4 py-1 hover:text-blue-500">
 	              		<i class="fas fa-list-ul"></i>
 	              		&nbsp; Administrar
 		              </li>
 	              </inertia-link>
-	              <li class="border-b border-gray-800">
-	                <a href="#" class="block px-4 py-1 hover:text-blue-500">
-	                	<i class="fas fa-plus-square"></i>
-	                	&nbsp; Crear Usuario
-	                </a>
-	              </li>
+	              <inertia-link :href="route('users.create')">
+		              <li class="border-b border-gray-800 block px-4 py-1 hover:text-blue-500">
+		                	<i class="fas fa-plus-square"></i>
+		                	&nbsp; Crear Usuario
+		                </a>
+		              </li>
+	              </inertia-link>
+
 	            </ul>
 	          </li>
 	          <!-- Roles y Permisos -->

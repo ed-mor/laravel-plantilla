@@ -44,6 +44,14 @@ class User extends Authenticatable
         'status' => false,
     ];
 
+    public function setFecha(){
+        if($this->deleted_at){
+            return $this->deleted_at->format('d-m-Y');
+        }else{
+            return null;
+        }
+    }
+
     /**
      * Para Setear el password
      */
